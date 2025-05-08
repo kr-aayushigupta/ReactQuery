@@ -1,16 +1,17 @@
 import {useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {fetchPosts, fetchTags, addPost} from "../api/api";
+import "../App.css";
 
 function PostList() {
   const [page, setPage] = useState(1);
 
 
-
+// UseQueryCLient hook 
   const queryClient = useQueryClient();
 
 
-//   useQuery 
+//   useQuery for POSTS
   const {
     data: postData,
     isError,
@@ -21,24 +22,28 @@ function PostList() {
     queryKey: ["posts", {page}],
     queryFn: () => fetchPosts(page),
     // 👇 will run query every interval
-    // refreshInterval: 1000 * 60,
+    // refreshInterval: 1000 * 60, //its will be fetched every 5 secs
     // 👇 Query runs when this is true
     // enabled: true,
     // 👇 while staletime lasts, it wont refetch on remount
-    staleTime: 1000 * 60 * 5,
-    // 👇 Dont allow caching
+    staleTime: 1000 * 60 * 5, // it denotes after what time willl the post become stale
+    // 👇 Dont allow caching and will make posts forever stale
     // gcTime: 0,
     // 👇 keeps the last used data
     // placeholderData: (previousData) => previousData,
   });
 
+
+//   UseQuery for TAGS
   const {data: tagsData, isLoading: isTagsLoading} = useQuery({
     queryKey: ["tags"],
     queryFn: fetchTags,
     // 👇 Since this wont change we dont want to refetch it
-    staleTime: Infinity,
+    staleTime: Infinity,  // we have set the tags as fresh meaning they are neven stale  and won't be fetched again
   });
 
+
+//===========  MUTATE===================================
   const {
     mutate,
     isPending,
@@ -48,25 +53,39 @@ function PostList() {
     mutationFn: addPost,
     //👇 num of times it will retry before failing
     retry: 3,
+
+    // onMutate runs before the actual mutation happens
     onMutate: async () => {
       // 👇 Can be used to cancel outgoing queries
       await queryClient.cancelQueries({queryKey: ["posts"], exact: true});
     },
+
+    // onSuccess runs after the mutation has happened
     onSuccess: () => {
       queryClient.invalidateQueries({
         // 👇 Invalidate queries with a key that starts with `posts`
-        queryKey: ["posts", {page}],
+        queryKey: ["posts", {page}], //if only posts is passed - it will invalidated wach and every posts and refecth them all
+
         // 👇 invalidate exact query
         // exact: true,
+
         // 👇 invalidate specific query key/s
         // queryKey: ["todos", {page: 10}],
+
         // 👇 invalidate range of query keys
         // predicate: (query) => query.queryKey[0] === "posts" && query.queryKey[1].page >= 2,
+
       });
 
       // 👇 We can manually add to posts to avoid api calls
       //   queryClient.setQueryData(["posts"], (old) => [data, ...old]);
     },
+
+    // onError:(error,variables,context)=>{},
+    // onSettled:(error,variables,context)=>{},
+
+
+
   });
 
   const handleSubmit = (e) => {

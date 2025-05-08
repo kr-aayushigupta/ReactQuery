@@ -4,6 +4,7 @@ import "./App.css";
 import { fetchPosts } from "./api/api";
 import PostList from './components/post-lists';
 import React, { useState } from "react";
+import MyComponent from "./components/infinitescrolling";
 
 // const POSTS = [
 //   { id: 1, title: "Post 1" },
@@ -21,13 +22,14 @@ function App() {
   // console.log(data,isLoading,status);
 
   // =============================================================
-  const [toggle, setToggle] = useState(true);
+  // const [toggle, setToggle] = useState(true);
   return (
     <div >
       <h1 className='title'>Learning ReactQuery</h1>
       <h2 className="title">My Posts </h2>
-      <button onClick={() => setToggle(!toggle)}>Show Posts</button>
-      {toggle && <PostList />}
+      {/* <button onClick={() => setToggle(!toggle)}>Show Posts</button>
+      {toggle && <PostList />} */}
+      <MyComponent/>
     </div>
   );
 
@@ -56,5 +58,6 @@ function App() {
 // function wait(duration) {
 //   return new Promise(resolve => setTimeout(resolve, duration));
 // }
+
 
 export default App;

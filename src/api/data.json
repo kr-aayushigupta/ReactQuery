@@ -293,6 +293,23 @@
         "crime",
         "mystery"
       ]
+    },
+    {
+      "id": 37,
+      "title": "I have a pen I have an Apple - Apple Pen",
+      "tags": [
+        "classic",
+        "fiction"
+      ]
+    },
+    {
+      "id": 38,
+      "title": "If we live fast let us die young",
+      "tags": [
+        "classic",
+        "english",
+        "fiction"
+      ]
     }
   ],
   "tags": [

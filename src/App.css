@@ -26,10 +26,20 @@ body {
   cursor: pointer;
   padding: 8px;
   font-size: 15px;
-  border: none;
-  background-color: rgb(37, 37, 37);
+  border: rgb(170, 52, 72);
+  background-color: rgb(228, 134, 150);
   text-transform: uppercase;
-  color: white;
+  color: black;
+  border-radius: 5px;
+}
+.container > form > button:hover {
+  cursor: pointer;
+  padding: 8px;
+  font-size: 15px;
+  border: rgb(170, 52, 72);
+  background-color: white;
+  text-transform: uppercase;
+  color: rgb(170, 52, 72);
   border-radius: 5px;
 }
 
@@ -70,7 +80,7 @@ body {
 }
 
  button{
-  margin: auto;
+  margin: 4px;
   background-color: rgb(228, 134, 150);
   color: black;
   width: 100px;
@@ -80,12 +90,11 @@ body {
 }
 
 button:hover{
-  margin: auto;
+  margin: 4px;
   background-color: white;
   color: black;
   border-width: medium;
   border-color: rgb(216, 65, 91);
   width: 100px;
   height:30px;
-  
 }
